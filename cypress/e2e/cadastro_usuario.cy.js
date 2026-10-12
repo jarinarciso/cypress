@@ -46,7 +46,7 @@ describe('Cadastro de Usuário', () => {
         registrationPage.getErrorMessage().should('have.text', 'O campo e-mail deve ser prenchido corretamente').should('be.visible');
     });
 
-    it.only('4. Cadastro de usuário com senha inválida', () => {
+    it('4. Cadastro de usuário com senha inválida', () => {
         registrationPage.fillName(faker.person.firstName());
         registrationPage.fillEmail(faker.internet.email());
         registrationPage.fillPassword(faker.internet.password({ length: 4 }));
