@@ -1,0 +1,13 @@
+{
+  "name": "qa-automation-cypress",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "cypress": "^15.15.0"
+  }
+}
