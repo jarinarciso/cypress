@@ -14,10 +14,7 @@ jobs:
       - name: Rodar testes em Cypress
         uses: cypress-io/github-action@v7
         with:
-              command: 
-                npx cypress run
-                --reporter mochawesome
-                --reporter-options '{"reportDir":"mochawesome-report","overwrite":false,"html":false,"json":true}'
+          command: npx cypress run
 
       - name: Gerar relatório HTML
         if: always()

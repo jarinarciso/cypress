@@ -10,5 +10,14 @@ module.exports = defineConfig({
     fixturesFolder: 'cypress/fixtures',
 
     baseUrl: 'https://www.automationpratice.com.br',
-  }
-})
+  },
+
+  reporter: "mochawesome",
+
+  reporterOptions: {
+    reportDir: "mochawesome-report",
+    overwrite: false,
+    html: false,
+    json: true,
+  },
+});
