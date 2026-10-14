@@ -1,27 +1,44 @@
+
 name: Rodando Testes de Regressão com Push
 
 on: push
 
-jobs: 
- cypress-run:
+jobs:
+  cypress-run:
     runs-on: ubuntu-latest
+
     steps:
       - name: Baixar projeto
         uses: actions/checkout@v7
-      
-      - name: Rodar Testes em Cypress
+
+      - name: Rodar testes em Cypress
         uses: cypress-io/github-action@v7
+        with:
+          command: npx cypress run --reporter mochawesome --reporter-options "reportDir=mochawesome-report,overwrite=false,html=false,json=true"
+
+      - name: Gerar relatório HTML
+        if: always()
+        run: |
+          if ls mochawesome-report/*.json 1> /dev/null 2>&1; then
+            npx mochawesome-merge mochawesome-report/*.json -o mochawesome-report/report.json
+            npx marge mochawesome-report/report.json -o mochawesome-report
+          else
+            echo "Nenhum arquivo JSON do Mochawesome foi gerado."
+            exit 1
+          fi
 
       - name: Upload screenshots
-        uses: actions/upload-artifact@v7
         if: failure()
+        uses: actions/upload-artifact@v7
         with:
           name: cypress-screenshots
-          path: cypress/screenshots
+          path: cypress/screenshots/
+          if-no-files-found: ignore
 
       - name: Upload mochawesome report
-        uses: actions/upload-artifact@v7
         if: always()
+        uses: actions/upload-artifact@v7
         with:
           name: mochawesome-report
-          path: mochawesome-report
+          path: mochawesome-report/
+          if-no-files-found: error
