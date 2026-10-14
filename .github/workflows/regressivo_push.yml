@@ -1,0 +1,27 @@
+name: Rodando Testes de Regressão com Push
+
+on: push
+
+jobs: 
+ cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v7
+      
+      - name: Rodar Testes em Cypress
+        uses: cypress-io/github-action@v7
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload mochawesome report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mochawesome-report
+          path: mochawesome-report
