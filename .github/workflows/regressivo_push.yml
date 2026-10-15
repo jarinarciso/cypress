@@ -16,16 +16,16 @@ jobs:
         with:
           command: npx cypress run
 
-      - name: Gerar relatório HTML
-        if: always()
-        run: |
-          if ls mochawesome-report/*.json 1> /dev/null 2>&1; then
-            npx mochawesome-merge mochawesome-report/*.json -o mochawesome-report/report.json
-            npx marge mochawesome-report/report.json -o mochawesome-report
-          else
-            echo "Nenhum arquivo JSON do Mochawesome foi gerado."
-            exit 1
-          fi
+      #- name: Gerar relatório HTML
+        #if: always()
+        #run: |
+          #if ls mochawesome-report/*.json 1> /dev/null 2>&1; then
+            #npx mochawesome-merge mochawesome-report/*.json -o mochawesome-report/report.json
+            #npx marge mochawesome-report/report.json -o mochawesome-report
+          #else
+            #echo "Nenhum arquivo JSON do Mochawesome foi gerado."
+            #exit 1
+          #fi
 
       - name: Upload screenshots
         if: failure()
